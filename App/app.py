@@ -113,11 +113,34 @@ def countElementsByCriteria(criteria, column, lst):
     """
     return 0
 
-def orderElementsByCriteria(function, column, lst, elements):
+def orderElementsByCriteria(lst, rank, parameter, orden):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
+    tempo=[] #list donde se almacena la lista desordenada con puntuaciones y nombres
+    final=[] #list donde se almacena la lista ordenada de nombres
+    p='vote_average' #criterio de de puntuacion
+    o=True #sentido de la lista
+    d='WORST ' #prefijo para el print
+
+    if orden.lower() == 'ascendente': #definir orden
+        o=False
+        d='BEST'
+    if parameter.lower() == 'count': #definir criterio
+        p='vote_count'
+
+    for i in range(1,len(lst)):
+        for j in range(len(rank)):
+            if lst[i]['original_title']==rank[j]:
+                tempo.append((lst[i][p],rank[j])) #añadir puntuacion y nombre en desorden
+                
+    tempo=sorted(tempo, reverse=o) #organizar lista
+
+    for k in range(len(tempo)):
+        final.append(tempo[k][1]) #añadir nombres ordenados a la lista
+    print('Top ',len(final),' ',d,'',parameter,': \n',final) #impresion final de los datos con la lista, el largo de la lista y los parametros de orden
     return 0
+
 
 def main():
     """
@@ -133,7 +156,8 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
-                lista = loadCSVFile("Data/test.csv") #llamar funcion cargar datos
+                I=input()
+                lista = loadCSVFile(I) #llamar funcion cargar datos
                 print("Datos cargados, ",lista['size']," elementos cargados")
             elif int(inputs[0])==2: #opcion 2
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
@@ -151,7 +175,7 @@ def main():
                     print("La lista esta vacía")
                 else:
                     criteria =input('Ingrese el criterio de búsqueda\n')
-                    counter=countElementsByCriteria(criteria,0,lista)
+                    counter=orderElementsByCriteria(lista,['The Dark','The Fifth Element','Todo sobre mi madre','Back to the Future','Dracula','Back to the Future Part II','The Wizard','The King of Comedy','Fargo','Terminator 2: Judgment Day',"Dave Chappelle's Block Party",'Rio Bravo','Alien'],'COUNT','descendente')
                     print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
