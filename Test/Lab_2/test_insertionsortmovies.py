@@ -55,12 +55,12 @@ def printList(lst):
         element = it.next(iterator)
         print(element['titles'])
 
-def less(element1, element2,condition='id'):
+def less(element1, element2,condition):
     if int(element1[condition]) < int(element2[condition]):
         return True
     return False
 
-def greater(element1, element2,condition='id'):
+def greater(element1, element2,condition):
     if int(element1[condition]) > int(element2[condition]):
         return True
     return False
