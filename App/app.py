@@ -111,13 +111,26 @@ def countElementsByCriteria(criteria, column, lst):
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
-    return 0
 
-def orderElementsByCriteria(function, column, lst, elements):
+    return 
+
+def orderElementsByCriteria(nombre, lst1, lst2):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
-    return 0
+    lstpeli=[]
+    for f in range(1,len(list2)):
+            if criteria== list2[f]["director_name"]:
+                id=list2[f]["id"] 
+                if id==list1[f]["id"]:
+                    pelicula=list1[f]["title"]
+                    lstpeli[f-1]+=pelicula
+                    vote=list1[f]["vote_average"]
+                    sum_vote+=vote
+                    cant_vote+=1
+    num_pelis=len(lstpeli)
+    prom= sum_vote/cant_vote
+    return (lstpeli,num_pelis,prom)
 
 def main():
     """
