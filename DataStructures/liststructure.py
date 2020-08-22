@@ -93,6 +93,7 @@ def addLast(lst, element):
             alt.addLast (lst, element)
         else:
             slt.addLast (lst, element)
+        return lst
     except Exception as exp:
         error.reraise (exp, 'List->addLast: ')
 
