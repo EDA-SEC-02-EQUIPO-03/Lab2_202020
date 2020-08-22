@@ -31,13 +31,14 @@ import csv
 list_type = 'SINGLE_LINKED'
 
 lst_movies = lt.newList(list_type)
-moviesfile = cf.data_dir + 'theMoviesdb/Moviescasting-small.csv'
+moviesfile = cf.data_dir + 'theMoviesdb/MoviesCastingRaw-small.csv'
 
 
 def setUp():
     print('Loading movies')
     loadCSVFile(moviesfile, lst_movies)
-    print(lst_books['size'])
+    print(lst_movies['size'])
+    print(lt.getElement(lst_movies,1))
 
 
 def tearDown():
@@ -45,9 +46,19 @@ def tearDown():
 
 
 def loadCSVFile(file, lst):
-    input_file = csv.DictReader(open(file, encoding = "utf-8"))
-    for row in input_file:
-        lt.addLast(lst, row)
+    
+    sep=';'
+    dialect= csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file,encoding='utf-8') as csvfile:
+            reader=csv.DictReader(file, dialect=dialect )
+
+            for row in reader:
+                lt.addLast(lst,row)
+    except:
+        assert False,'Se presentó un error al cargar el archivo'
+    
 
 def printList(lst):
     iterator = it.newIterator(lst)
@@ -56,12 +67,12 @@ def printList(lst):
         print(element['titles'])
 
 def less(element1, element2,condition):
-    if int(element1[condition]) < int(element2[condition]):
+    if element1[condition] < element2[condition]:
         return True
     return False
 
 def greater(element1, element2,condition):
-    if int(element1[condition]) > int(element2[condition]):
+    if element1[condition] > element2[condition]:
         return True
     return False
 
