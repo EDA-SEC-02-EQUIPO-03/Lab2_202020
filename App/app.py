@@ -32,6 +32,8 @@ import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
+from Sorting import insertionsort as ins
+from Sorting import selectionsort as sel
 
 from time import process_time 
 
@@ -126,25 +128,29 @@ def orderElementsByCriteria(lst, rank, parameter, orden):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
-    tempo=[] #list donde se almacena la lista desordenada con puntuaciones y nombres
+    tempo=lt.newList() #list donde se almacena la lista desordenada con puntuaciones y nombres
     final=[] #list donde se almacena la lista ordenada de nombres
     p='vote_average' #criterio de de puntuacion
-    o=True #sentido de la lista
+    o=less #sentido de la lista
     d='WORST ' #prefijo para el print
 
+
+
     if orden.lower() == 'ascendente': #definir orden
-        o=False
+        o=greater
         d='BEST'
     if parameter.lower() == 'count': #definir criterio
         p='vote_count'
 
-    for i in range(1,len(lst)):
-        for j in range(len(rank)):
-            if lst[i]['original_title']==rank[j]:
-                tempo.append((lst[i][p],rank[j])) #añadir puntuacion y nombre en desorden
-                
-    tempo=sorted(tempo, reverse=o) #organizar lista
 
+    for i in range(0,lt.size(lst)):
+        for j in range(len(rank)):
+            elemento=lt.getElement(lst,i)
+            if elemento["original_title"]==rank[j]:        
+                lt.addLast(tempo,elemento) #añadir puntuacion y nombre en desorden
+    
+    tempo=ins.insertionSort(tempo,o,p)
+    print(tempo)
     for k in range(len(tempo)):
         final.append(tempo[k][1]) #añadir nombres ordenados a la lista
     print('Top ',len(final),' ',d,'',parameter,': \n',final) #impresion final de los datos con la lista, el largo de la lista y los parametros de orden
