@@ -1,12 +1,12 @@
 import config
 import pytest
 import csv
-from DataStructures import arraylistiterator as it
-from DataStructures import arraylist as lst
+from ADT import list as lst
+list_type = 'ARRAY_LIST'
 
 def test_carga():
     List =[]
-    List_ADT= lst.newList()
+    List_ADT= lst.newList('ARRAY_LIST')
     
     file= 'Data/theMoviesdb/AllMoviesCastingRaw.csv'
     sep=';'
@@ -32,7 +32,7 @@ def test_carga():
 
 def test_carga_2():
     List =[]
-    List_ADT= lst.newList()
+    List_ADT= lst.newList('ARRAY_LIST')
     
     file= 'Data/theMoviesdb/AllMoviesDetailsCleaned.csv'
     sep=';'
