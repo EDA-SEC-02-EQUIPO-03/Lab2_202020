@@ -55,3 +55,4 @@ def test_carga_2():
 
     for x in range(len(List)):
         assert lst.getElement(List_ADT,x+1)==List[x], 'Las listas no estan en el mismo orden'
+    print(lst.getElement(List_ADT,1))
