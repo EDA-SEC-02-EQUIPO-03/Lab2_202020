@@ -31,7 +31,7 @@ import sys
 import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
-from DataStructures import liststructure as lt
+from DataStructures import liststructure as ls
 
 from time import process_time 
 
@@ -118,6 +118,11 @@ def conocer_a_un_director(nombre, lst1, lst2):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
+    iterator=it.newIterator(lst2)
+    while  it.hasNext(iterator):
+        element = it.next(iterator)
+        if nombre.lower() in element["director_name"].lower():
+            
     lstpeli=[]
     for f in range(1,len(lst2)):
             if nombre== lst2[f]["director_name"]:
@@ -131,6 +136,7 @@ def conocer_a_un_director(nombre, lst1, lst2):
     num_pelis=len(lstpeli)
     prom= sum_vote/cant_vote
     return (lstpeli,num_pelis,prom)
+    
 
 def main():
     """
@@ -140,8 +146,8 @@ def main():
     Args: None
     Return: None 
     """
-    lista1 = lt.addLast() 
-    lista2 = lt.addLast()  # se require usar lista definida
+    lista1 = lt.newList() 
+    lista2 = lt.newList() # se require usar lista definida
     while True:
         printMenu() #imprimir el menu de opciones en consola
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
