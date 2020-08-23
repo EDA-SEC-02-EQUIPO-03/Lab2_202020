@@ -31,17 +31,17 @@ import sys
 import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
-from DataStructures import liststructure as lt
+from DataStructures import liststructure as ls
 
 from time import process_time 
 
 def less(element1, element2,condition):
-    if int(element1[condition]) < int(element2[condition]):
+    if float(element1[condition]) < float(element2[condition]):
         return True
     return False
 
 def greater(element1, element2,condition):
-    if int(element1[condition]) > int(element2[condition]):
+    if float(element1[condition]) > float(element2[condition]):
         return True
     return False
 
@@ -142,7 +142,9 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
-                lista = loadCSVFile("Data/test.csv") #llamar funcion cargar datos
+                lista1 = loadCSVFile("Data/thMoviesdb/SmallMoviesDetailsCleaned.csv") #llamar funcion cargar datos
+                print("Datos cargados, ",lista['size']," elementos cargados")
+                lista2 = loadCSVFile("Data/thMoviesdb/MoviesCastingRaw-small.csv")
                 print("Datos cargados, ",lista['size']," elementos cargados")
             elif int(inputs[0])==2: #opcion 2
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
