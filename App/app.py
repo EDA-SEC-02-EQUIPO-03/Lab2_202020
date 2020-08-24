@@ -31,10 +31,25 @@ import sys
 import csv
 from ADT import list as lt
 from DataStructures import listiterator as it
+<<<<<<< HEAD
 from DataStructures import liststructure as ls
+=======
+from DataStructures import liststructure as lt
+from Sorting import insertionsort as ins
+from Sorting import selectionsort as sel
+>>>>>>> fc09ddf996c4d0de0277e3e1925a75dba90e72d9
 
 from time import process_time 
 
+def less(element1, element2,condition):
+    if int(element1[condition]) < int(element2[condition]):
+        return True
+    return False
+
+def greater(element1, element2,condition):
+    if int(element1[condition]) > int(element2[condition]):
+        return True
+    return False
 
 def loadCSVFile (file, sep=";"):
     """
@@ -112,6 +127,7 @@ def countElementsByCriteria(criteria, column, lst):
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
 
+<<<<<<< HEAD
     return 
 
 def conocer_a_un_director(nombre, lst1, lst2):
@@ -150,6 +166,41 @@ def conocer_a_un_director(nombre, lst1, lst2):
     #prom= sum_vote/cant_vote
    # return (lstpeli,num_pelis,prom)
     
+=======
+def orderElementsByCriteria(lst, rank, parameter, orden):
+    """
+    Retorna una lista con cierta cantidad de elementos ordenados por el criterio
+    """
+    tempo=lt.newList() #list donde se almacena la lista desordenada con puntuaciones y nombres
+    final=[] #list donde se almacena la lista ordenada de nombres
+    p='vote_average' #criterio de de puntuacion
+    o=less #sentido de la lista
+    d='WORST ' #prefijo para el print
+
+
+
+    if orden.lower() == 'ascendente': #definir orden
+        o=greater
+        d='BEST'
+    if parameter.lower() == 'count': #definir criterio
+        p='vote_count'
+
+
+    for i in range(0,lt.size(lst)):
+        for j in range(len(rank)):
+            elemento=lt.getElement(lst,i)
+            if elemento["original_title"]==rank[j]:        
+                lt.addLast(tempo,elemento) #añadir puntuacion y nombre en desorden
+    
+    tempo=ins.insertionSort(tempo,o,p)
+    print(tempo)
+    for k in range(len(tempo)):
+        final.append(tempo[k][1]) #añadir nombres ordenados a la lista
+    print('Top ',len(final),' ',d,'',parameter,': \n',final) #impresion final de los datos con la lista, el largo de la lista y los parametros de orden
+    return 0
+
+
+>>>>>>> fc09ddf996c4d0de0277e3e1925a75dba90e72d9
 def main():
     """
     Método principal del programa, se encarga de manejar todos los metodos adicionales creados
@@ -164,7 +215,12 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada 
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
+<<<<<<< HEAD
                 lista = loadCSVFile("Data\theMoviesdb\SmallMoviesDetailsCleaned") #llamar funcion cargar datos
+=======
+                I=input()
+                lista = loadCSVFile(I) #llamar funcion cargar datos
+>>>>>>> fc09ddf996c4d0de0277e3e1925a75dba90e72d9
                 print("Datos cargados, ",lista['size']," elementos cargados")
                 #lista2 = loadCSVFile("Data\theMoviesdb\MoviesCastingRaw-small") #llamar funcion cargar datos
                 #print("Datos cargados, ",lista2['size']," elementos cargados")
@@ -185,6 +241,7 @@ def main():
                 if lista2==None or lista2['size']==0: #obtener la longitud de la lista
                     print("La lista del archivo 2 esta vacía")
                 else:
+<<<<<<< HEAD
                     nombre =input('Ingrese el nombre del director que desea consultar\n')
                     director=conocer_a_un_director(nombre, lista1, lista2)
 
@@ -193,6 +250,11 @@ def main():
                     print("Las peliculas dirigidas por el director son:")
                     for i in director[0]:
                         print(i)
+=======
+                    criteria =input('Ingrese el criterio de búsqueda\n')
+                    counter=orderElementsByCriteria(lista,['The Dark','The Fifth Element','Todo sobre mi madre','Back to the Future','Dracula','Back to the Future Part II','The Wizard','The King of Comedy','Fargo','Terminator 2: Judgment Day',"Dave Chappelle's Block Party",'Rio Bravo','Alien'],'COUNT','descendente')
+                    print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
+>>>>>>> fc09ddf996c4d0de0277e3e1925a75dba90e72d9
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
                 
