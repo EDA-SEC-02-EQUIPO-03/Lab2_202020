@@ -34,6 +34,7 @@ from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
 from Sorting import insertionsort as ins
 from Sorting import selectionsort as sel
+from Sorting import shellsort as she
 
 from time import process_time 
 
@@ -60,8 +61,8 @@ def loadCSVFile (file, sep=";"):
         Borra la lista e informa al usuario
     Returns: None  
     """
-    #lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    lst = lt.newList() #Usando implementacion linkedlist
+    lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
+    #lst = lt.newList() #Usando implementacion linkedlist
     print("Cargando archivo ....")
     t1_start = process_time() #tiempo inicial
     dialect = csv.excel()
@@ -128,32 +129,27 @@ def orderElementsByCriteria(lst, rank, parameter, orden):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
+    t1_start = process_time()
     tempo=lt.newList() #list donde se almacena la lista desordenada con puntuaciones y nombres
-    final=[] #list donde se almacena la lista ordenada de nombres
+    final=[] #list donde se almacena la lista ordenada de nombresP
     p='vote_average' #criterio de de puntuacion
     o=less #sentido de la lista
     d='WORST ' #prefijo para el print
-
-
-
     if orden.lower() == 'ascendente': #definir orden
         o=greater
         d='BEST'
     if parameter.lower() == 'count': #definir criterio
         p='vote_count'
-
-
-    for i in range(0,lt.size(lst)):
-        for j in range(len(rank)):
-            elemento=lt.getElement(lst,i)
-            if elemento["original_title"]==rank[j]:        
-                lt.addLast(tempo,elemento) #añadir puntuacion y nombre en desorden
+    tempo=lst.copy()
     
-    tempo=ins.insertionSort(tempo,o,p)
-    print(tempo)
-    for k in range(len(tempo)):
-        final.append(tempo[k][1]) #añadir nombres ordenados a la lista
-    print('Top ',len(final),' ',d,'',parameter,': \n',final) #impresion final de los datos con la lista, el largo de la lista y los parametros de orden
+    #ins.insertionSort(tempo,o,p)
+    #sel.selectionSort(tempo,o,p)
+    she.shellSort(tempo,o,p)
+    for j in range(1,rank):
+        final.append(lt.getElement(tempo,j))
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    print('Top ',rank,' ',d,'',parameter,': \n',final) #impresion final de los datos con la lista, el largo de la lista y los parametros de orden
     return 0
 
 
@@ -189,9 +185,8 @@ def main():
                 if lista==None or lista['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
                 else:
-                    criteria =input('Ingrese el criterio de búsqueda\n')
-                    counter=orderElementsByCriteria(lista,['The Dark','The Fifth Element','Todo sobre mi madre','Back to the Future','Dracula','Back to the Future Part II','The Wizard','The King of Comedy','Fargo','Terminator 2: Judgment Day',"Dave Chappelle's Block Party",'Rio Bravo','Alien'],'COUNT','descendente')
-                    print("Coinciden ",counter," elementos con el crtierio: '", criteria ,"' (en construcción ...)")
+                    orderElementsByCriteria(lista,25,'COUNT','descendente')
+                    
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
                 
