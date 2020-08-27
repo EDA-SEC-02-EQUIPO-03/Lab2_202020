@@ -21,7 +21,8 @@
 import config
 from Utils import error as error
 from DataStructures import liststructure as lt
-
+from DataStructures import linkedlistiterator as lin
+from DataStructures import arraylistiterator as arr
 
 """
   Este módulo implementa el tipo abstracto de datos (TAD) lista. 
@@ -67,6 +68,21 @@ def addFirst(lst, element):
         lt.addFirst (lst, element)
     except Exception as exp:
         error.reraise (exp, 'TADList->addFirst: ')
+
+def new_iterator(datastructure,iterator):
+    if datastructure=="linkedlist":
+        ite=lin.newIterator(iterator)
+    elif datastructure=="arraylist":
+        ite= arr.newIterator(iterator)
+    return ite
+
+
+def next (datastructure,iterator):
+    if datastructure=="linkedlist":
+        ite=lin.next(iterator)
+    elif datastructure=="arraylist":
+        ite= arr.next(iterator)
+    return ite
 
 
 
@@ -343,3 +359,12 @@ def subList (lst, pos, numelem):
         error.reraise (exp, 'List->subList: ')
 
 
+def iterator_hasnext(datastructure,iterator):
+    if datastructure=="linkedlist":
+        boolean=lin.hasNext(iterator)
+    elif datastructure=="arraylist":
+        boolean= arr.hasNext(iterator)
+    return boolean
+
+    
+    
