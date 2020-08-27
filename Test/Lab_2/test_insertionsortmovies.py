@@ -24,6 +24,7 @@ import pytest
 import config as cf
 from Sorting import insertionsort as sort
 from DataStructures import listiterator as it
+
 from ADT import list as lt
 import csv
 
@@ -38,7 +39,7 @@ def setUp():
     print('Loading movies')
     loadCSVFile(moviesfile, lst_movies)
     print(lst_movies['size'])
-    print(lt.getElement(lst_movies,1))
+    
 
 
 def tearDown():
@@ -52,7 +53,7 @@ def loadCSVFile(file, lst):
     dialect.delimiter=sep
     try:
         with open(file,encoding='utf-8') as csvfile:
-            reader=csv.DictReader(file, dialect=dialect )
+            reader=csv.DictReader(csvfile, dialect=dialect )
 
             for row in reader:
                 lt.addLast(lst,row)
@@ -67,12 +68,12 @@ def printList(lst):
         print(element['titles'])
 
 def less(element1, element2,condition):
-    if element1[condition] < element2[condition]:
+    if int(element1[condition]) < int(element2[condition]):
         return True
     return False
 
 def greater(element1, element2,condition):
-    if element1[condition] > element2[condition]:
+    if int(element1[condition]) > int(element2[condition]):
         return True
     return False
 
@@ -97,3 +98,16 @@ def test_loading_CSV_y_ordenamiento():
             break
         assert x > y
 
+def test_loading_CSV_y_ordenamiento_inv():
+    """
+    Prueba que se pueda leer el archivo y que despues de relizar el sort, el orden este correcto
+    """
+    setUp()
+    sort.insertionSort(lst_movies,greater)
+    while not (lt.isEmpty(lst_movies)):
+        x = int(lt.removeLast(lst_movies)['id'])
+        if not (lt.isEmpty(lst_movies)):
+            y = int(lt.lastElement(lst_movies)['id'])
+        else:
+            break
+        assert x < y

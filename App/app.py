@@ -33,6 +33,17 @@ from ADT import list as lt
 from time import process_time 
 
 
+def less(element1, element2,condition):1
+    if float(element1[condition]) < float(element2[condition]):
+        return True
+    return False
+
+def greater(element1, element2,condition):
+    if float(element1[condition]) > float(element2[condition]):
+        return True
+    return False
+
+
 def loadCSVFile (file, sep=";"):
     """
     Carga un archivo csv a una lista
@@ -140,6 +151,7 @@ def main():
     Args: None
     Return: None 
     """
+<<<<<<< HEAD
     lista1 = lt.newList()
     lista2 = lt.newList()# se require usar lista definida
     while True:
@@ -182,6 +194,7 @@ def main():
                         print("Las anteriores tienen un promedio de votación de: ",counter[2])
                 elif int(inputs[0])==0: #opcion 0, salir
                     sys.exit(0)
+
                 
 if __name__ == "__main__":
     main()
