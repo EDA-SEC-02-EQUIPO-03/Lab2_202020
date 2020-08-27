@@ -27,8 +27,8 @@ from DataStructures import listiterator as it
 from ADT import list as lt
 import csv
 
-list_type = 'ARRAY_LIST'
-#list_type = 'SINGLE_LINKED'
+#list_type = 'ARRAY_LIST'
+list_type = 'SINGLE_LINKED'
 
 lst_movies = lt.newList(list_type)
 moviesfile = cf.data_dir + 'theMoviesdb/MoviesCastingRaw-small.csv'

@@ -7,7 +7,7 @@ def test_carga():
     List =[]
     List_ADT= lst.newList(list_type)
     
-    file= 'Data/theMoviesdb/AllMoviesCastingRaw.csv'
+    file= 'Data/theMoviesdb/MoviesCastingRaw-small.csv'
     sep=';'
     dialect= csv.excel()
     dialect.delimiter=sep
