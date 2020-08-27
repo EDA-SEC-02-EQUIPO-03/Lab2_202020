@@ -96,7 +96,7 @@ def countElementsFilteredByColumn(criteria, column, lst):
     else:
         t1_start = process_time() #tiempo inicial
         counter=0
-        iterator = lt.newIterator(e,lst)
+        iterator = lt.new_iterator(e,lst)
         while  lt.iterator_hasnext(e,iterator):
             element = lt.next(e,iterator)
             if criteria.lower() in element[column].lower(): #filtrar por palabra clave 
@@ -110,7 +110,6 @@ def countElementsByCriteria(criteria,lista1,lista2):
     """
     Retorna una lista con cierta cantidad de elementos ordenados por el criterio
     """
-    e="linkedlist"
     t1_start = process_time()
     lstpeli=[]
     sum_vote=0
