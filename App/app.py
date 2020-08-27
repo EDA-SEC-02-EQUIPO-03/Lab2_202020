@@ -151,7 +151,6 @@ def main():
     Args: None
     Return: None 
     """
-<<<<<<< HEAD
     lista1 = lt.newList()
     lista2 = lt.newList()# se require usar lista definida
     while True:
