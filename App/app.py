@@ -37,13 +37,13 @@ from Sorting import selectionsort as sel
 
 from time import process_time 
 
-def less(element1, element2,condition):
-    if int(element1[condition]) < int(element2[condition]):
+def less(element1, element2,condition):1
+    if float(element1[condition]) < float(element2[condition]):
         return True
     return False
 
 def greater(element1, element2,condition):
-    if int(element1[condition]) > int(element2[condition]):
+    if float(element1[condition]) > float(element2[condition]):
         return True
     return False
 
@@ -165,21 +165,23 @@ def main():
     Args: None
     Return: None 
     """
-    lista = lt.newList()   # se require usar lista definida
+    lista1= lt.newList()
+    lista2=lt.newList()
     while True:
         printMenu() #imprimir el menu de opciones en consola
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
-                I=input()
-                lista = loadCSVFile(I) #llamar funcion cargar datos
-                print("Datos cargados, ",lista['size']," elementos cargados")
+                lista1 = loadCSVFile("Data/thMoviesdb/SmallMoviesDetailsCleaned.csv") #llamar funcion cargar datos
+                print("Datos cargados, ",lista1['size']," elementos cargados")
+                lista2 = loadCSVFile("Data/thMoviesdb/MoviesCastingRaw-small.csv")
+                print("Datos cargados, ",lista2['size']," elementos cargados")
             elif int(inputs[0])==2: #opcion 2
-                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                if lista1==None or lista1['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")    
-                else: print("La lista tiene ",lista['size']," elementos")
+                else: print("La lista tiene ",lista1['size']," elementos")
             elif int(inputs[0])==3: #opcion 3
-                if lista==None or lista['size']==0: #obtener la longitud de la lista
+                if lista1==None or lista1['size']==0: #obtener la longitud de la lista
                     print("La lista esta vacía")
                 else:   
                     criteria =input('Ingrese el criterio de búsqueda\n')

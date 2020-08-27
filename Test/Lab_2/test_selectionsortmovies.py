@@ -27,16 +27,16 @@ from DataStructures import listiterator as it
 from ADT import list as lt
 import csv
 
-#list_type = 'ARRAY_LIST'
-list_type = 'SINGLE_LINKED'
+list_type = 'ARRAY_LIST'
+#list_type = 'SINGLE_LINKED'
 
 lst_movies = lt.newList(list_type)
-moviesfile = cf.data_dir + 'theMoviesdb/Moviescasting-small.csv'
+moviesfile = cf.data_dir + 'theMoviesdb/MoviesCastingRaw-small.csv'
 
 
 def setUp():
     print('Loading movies')
-    loadCSVFile(moviesfile, lst_lst)
+    loadCSVFile(moviesfile, lst_movies)
     print(lst_movies['size'])
 
 
@@ -45,9 +45,19 @@ def tearDown():
 
 
 def loadCSVFile(file, lst):
-    input_file = csv.DictReader(open(file, encoding = "utf-8"))
-    for row in input_file:
-        lt.addLast(lst, row)
+
+    sep=';'
+    dialect= csv.excel()
+    dialect.delimiter=sep
+    try:
+        with open(file,encoding='utf-8') as csvfile:
+            reader=csv.DictReader(csvfile, dialect=dialect )
+
+            for row in reader:
+                lt.addLast(lst,row)
+    except:
+        assert False,'Se presentó un error al cargar el archivo'
+    
 
 def printList(lst):
     iterator = it.newIterator(lst)
@@ -86,3 +96,16 @@ def test_loading_CSV_y_ordenamiento():
             break
         assert x > y
 
+def test_loading_CSV_y_ordenamiento_inv():
+    """
+    Prueba que se pueda leer el archivo y que despues de relizar el sort, el orden este correcto
+    """
+    setUp()
+    sort.selectionSort(lst_movies,greater)
+    while not (lt.isEmpty(lst_movies)):
+        x = int(lt.removeLast(lst_movies)['id'])
+        if not (lt.isEmpty(lst_movies)):
+            y = int(lt.lastElement(lst_movies)['id'])
+        else:
+            break
+        assert x < y
