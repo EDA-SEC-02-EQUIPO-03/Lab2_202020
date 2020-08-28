@@ -83,7 +83,8 @@ def printMenu():
     print("1- Cargar Datos")
     print("2- Contar los elementos de la Lista")
     print("3- Contar elementos filtrados por palabra clave")
-    print("4- Consultar elementos a partir de dos listas")
+    print("4- Conocer a un director")
+    print("5- Ranking de peliculas")
     print("0- Salir")
 
 def countElementsFilteredByColumn(criteria, column, lst):
@@ -116,6 +117,32 @@ def countElementsFilteredByColumn(criteria, column, lst):
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return counter
 
+def orderElementsByCriteria(lst, rank, parameter, orden):
+    """
+    Retorna una lista con cierta cantidad de elementos ordenados por el criterio
+    """
+    t1_start = process_time()
+    tempo=lt.newList() #list donde se almacena la lista desordenada con puntuaciones y nombres
+    final=[] #list donde se almacena la lista ordenada de nombresP
+    p='vote_average' #criterio de de puntuacion
+    o=less #sentido de la lista
+    d='WORST ' #prefijo para el print
+    if orden.lower() == 'ascendente': #definir orden
+        o=greater
+        d='BEST'
+    if parameter.lower() == 'count': #definir criterio
+        p='vote_count'
+    tempo=lst.copy()
+    
+    #ins.insertionSort(tempo,o,p)
+    #sel.selectionSort(tempo,o,p)
+    she.shellSort(tempo,o,p)
+    for j in range(1,rank):
+        final.append(lt.getElement(tempo,j))
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    print('Top ',rank,' ',d,'',parameter,': \n',final) #impresion final de los datos con la lista, el largo de la lista y los parametros de orden
+    return 0
 
 def countElementsByCriteria(criteria,lista1,lista2):
     """
@@ -191,6 +218,11 @@ def main():
                         for k in counter[0]:
                             print(k)
                         print("Las anteriores tienen un promedio de votación de: ",counter[2])
+                elif int(inputs[0])==5: #opcion 5
+                       if lista==None or lista['size']==0: #obtener la longitud de la lista
+                               print("La lista esta vacía")
+                       else:
+                           orderElementsByCriteria(lista,25,'COUNT','descendente')
                 elif int(inputs[0])==0: #opcion 0, salir
                     sys.exit(0)
 
